@@ -11,6 +11,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.Dimension;
@@ -32,8 +33,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
 
-import java.time.Duration;
-
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class D3Test {
   private WebDriver driver;
@@ -44,6 +43,8 @@ public class D3Test {
     ChromeOptions options = new ChromeOptions();
     options.addArguments("--headless");
     driver = new ChromeDriver(options);
+    js = (JavascriptExecutor) driver;
+    vars = new HashMap<String, Object>();
   }
   @After
   public void tearDown() {
@@ -54,7 +55,7 @@ public class D3Test {
     // Test name: TEST-1-LINKS
     // Step # | name | target | value
     // 1 | open | / | 
-    driver.get("https://localhost:8080/");
+    driver.get("http://localhost:8080/");
     // 2 | runScript | document.cookie = "1=false";document.cookie = "2=false";document.cookie = "3=false"; | 
     js.executeScript("document.cookie = \"1=false\";document.cookie = \"2=false\";document.cookie = \"3=false\";");
     // 3 | storeAttribute | linkText=Reset@href | resetLink
@@ -64,14 +65,14 @@ public class D3Test {
       vars.put("resetLink", attribute);
     }
     // 4 | assert | resetLink | /reset
-    assertEquals("https://localhost:8080/reset",vars.get("resetLink").toString());
+    assertEquals("http://localhost:8080/reset",vars.get("resetLink").toString());
   }
   @Test
   public void tEST2RESET() {
     // Test name: TEST-2-RESET
     // Step # | name | target | value
     // 1 | open | / | 
-    driver.get("https://localhost:8080/");
+    driver.get("http://localhost:8080/");
     // 2 | runScript | document.cookie = "1=true";document.cookie = "2=true";document.cookie = "3=true"; | 
     js.executeScript("document.cookie = \"1=true\";document.cookie = \"2=true\";document.cookie = \"3=true\";");
     // 3 | click | linkText=Reset | 
@@ -88,7 +89,7 @@ public class D3Test {
     // Test name: TEST-3-CATALOG
     // Step # | name | target | value
     // 1 | open | / | 
-    driver.get("https://localhost:8080/");
+    driver.get("http://localhost:8080/");
     // 2 | runScript | document.cookie = "1=false";document.cookie = "2=false";document.cookie = "3=false"; | 
     js.executeScript("document.cookie = \"1=false\";document.cookie = \"2=false\";document.cookie = \"3=false\";");
     // 3 | click | linkText=Catalog | 
@@ -100,14 +101,14 @@ public class D3Test {
       vars.put("catImgSrc", attribute);
     }
     // 5 | assert | catImgSrc | /images/cat2.jpg
-    assertEquals("https://localhost:8080/images/cat2.jpg",vars.get("catImgSrc").toString());
+    assertEquals("http://localhost:8080/images/cat2.jpg",vars.get("catImgSrc").toString());
   }
   @Test
   public void tEST4LISTING() {
     // Test name: TEST-4-LISTING
     // Step # | name | target | value
     // 1 | open | / | 
-    driver.get("https://localhost:8080/");
+    driver.get("http://localhost:8080/");
     // 2 | runScript | document.cookie = "1=false";document.cookie = "2=false";document.cookie = "3=false"; | 
     js.executeScript("document.cookie = \"1=false\";document.cookie = \"2=false\";document.cookie = \"3=false\";");
     // 3 | click | linkText=Catalog | 
@@ -124,7 +125,7 @@ public class D3Test {
     // Test name: TEST-5-RENT-A-CAT
     // Step # | name | target | value
     // 1 | open | / | 
-    driver.get("https://localhost:8080/");
+    driver.get("http://localhost:8080/");
     // 2 | runScript | document.cookie = "1=false";document.cookie = "2=false";document.cookie = "3=false"; | 
     js.executeScript("document.cookie = \"1=false\";document.cookie = \"2=false\";document.cookie = \"3=false\";");
     // 3 | click | linkText=Rent-A-Cat | 
@@ -145,7 +146,7 @@ public class D3Test {
     // Test name: TEST-6-RENT
     // Step # | name | target | value
     // 1 | open | / | 
-    driver.get("https://localhost:8080/");
+    driver.get("http://localhost:8080/");
     // 2 | runScript | document.cookie = "1=false";document.cookie = "2=false";document.cookie = "3=false"; | 
     js.executeScript("document.cookie = \"1=false\";document.cookie = \"2=false\";document.cookie = \"3=false\";");
     // 3 | click | linkText=Rent-A-Cat | 
@@ -168,7 +169,7 @@ public class D3Test {
     // Test name: TEST-7-RETURN
     // Step # | name | target | value
     // 1 | open | / | 
-    driver.get("https://localhost:8080/");
+    driver.get("http://localhost:8080/");
     // 2 | runScript | document.cookie = "1=false";document.cookie = "2=true";document.cookie = "3=false"; | 
     js.executeScript("document.cookie = \"1=false\";document.cookie = \"2=true\";document.cookie = \"3=false\";");
     // 3 | click | linkText=Rent-A-Cat | 
@@ -193,7 +194,7 @@ public class D3Test {
     // Test name: TEST-8-FEED-A-CAT
     // Step # | name | target | value
     // 1 | open | / | 
-    driver.get("https://localhost:8080/");
+    driver.get("http://localhost:8080/");
     // 2 | runScript | document.cookie = "1=false";document.cookie = "2=false";document.cookie = "3=false"; | 
     js.executeScript("document.cookie = \"1=false\";document.cookie = \"2=false\";document.cookie = \"3=false\";");
     // 3 | click | linkText=Feed-A-Cat | 
@@ -209,7 +210,7 @@ public class D3Test {
     // Test name: TEST-9-FEED
     // Step # | name | target | value
     // 1 | open | / | 
-    driver.get("https://localhost:8080/");
+    driver.get("http://localhost:8080/");
     // 2 | runScript | document.cookie = "1=false";document.cookie = "2=false";document.cookie = "3=false"; | 
     js.executeScript("document.cookie = \"1=false\";document.cookie = \"2=false\";document.cookie = \"3=false\";");
     // 3 | click | linkText=Feed-A-Cat | 
@@ -232,9 +233,7 @@ public class D3Test {
     // Test name: TEST-10-GREET-A-CAT
     // Step # | name | target | value
     // 1 | open | / | 
-    driver.get("https://localhost:8080/");
-    // 2 | runScript | document.cookie = "1=false";document.cookie = "2=false";document.cookie = "3=false"; | 
-    js.executeScript("document.cookie = \"1=false\";document.cookie = \"2=false\";document.cookie = \"3=false\";");
+    driver.get("http://localhost:8080/");
     // 2 | setWindowSize | 647x919 | 
     driver.manage().window().setSize(new Dimension(647, 919));
     // 3 | click | linkText=Greet-A-Cat | 
@@ -247,9 +246,7 @@ public class D3Test {
     // Test name: TEST-11-GREET-A-CAT-WITH-NAME
     // Step # | name | target | value
     // 1 | open | /greet-a-cat/Jennyanydots | 
-    driver.get("https://localhost:8080/greet-a-cat/Jennyanydots");
-    // 2 | runScript | document.cookie = "1=false";document.cookie = "2=false";document.cookie = "3=false"; | 
-    js.executeScript("document.cookie = \"1=false\";document.cookie = \"2=false\";document.cookie = \"3=false\";");
+    driver.get("http://localhost:8080/greet-a-cat/Jennyanydots");
     // 2 | assertText | xpath=//div[@id='greeting']/h4 | Meow! from Jennyanydots.
     assertThat(driver.findElement(By.xpath("//div[@id=\'greeting\']/h4")).getText(), is("Meow! from Jennyanydots."));
   }
